@@ -3,7 +3,7 @@ const Joi = require("joi");
 
 //validator of user sign up and login
 module.exports.userValidator= (data)=>{
-    const schema =Joi.object({
+    schema =Joi.object({
         username:Joi.string()
         .required()
         .trim()
@@ -21,7 +21,7 @@ module.exports.userValidator= (data)=>{
         .pattern(new RegExp(/(?=.*[A-Z])[a-zA-Z0-9]+[\#\@\$\%\&\*\(\)\>\<\~\{\}]+/))
         .messages({
             'string.pattern.base': `Password must contain atleast one capital letter and one special character`,
-            'any.required': `This field is required`,
+            'any.required': `Password is required`,
             'string.min': `Password length must at least be 8 characters long`
         }),
     });
@@ -31,14 +31,7 @@ module.exports.userValidator= (data)=>{
 //validator for user id for blog posting
 module.exports.postValidator=(data)=>{
     schema=Joi.object({
-        id:Joi.string()
-        .required()
-        .trim()
-        .messages({
-            'any.required': `'id' parameter missing.`,
-            'string.base':`'id' should contain alphanumeric values.`
-        }),
-        title:Joi.string()
+        Title:Joi.string()
         .required()
         .max(150)
         .trim()
@@ -48,13 +41,24 @@ module.exports.postValidator=(data)=>{
             'string.max': `Title can only contain 150 characters`
         }),
 
-        fields:Joi.string()
+        Content:Joi.string()
         .required()
         .trim()
-        .message({
-            'any.required': `Fields are mandatory to post the Blog`
+        .messages({
+            'any.required': `Content is mandatory to post the Blog`
         })
     })
 
+    return schema.validate(data);
+}
+
+module.exports.PostIDValidation=(data)=>{
+    schema=Joi.object({
+        Post_Id : Joi.string()
+        .required()
+        .messages({
+            'any.required': `Post ID is required`
+        }),
+    })
     return schema.validate(data);
 }

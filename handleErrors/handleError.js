@@ -13,11 +13,27 @@ module.exports.dbSchemaErrors=(err)=>{
     return errors;
 }
 
-module.exports.JoiErrorHandler=(err)=>{
-    let errors={username:"", password:""};
-    Object.values(err.details).forEach(({path, message})=>{
-        errors[path]= message
-    });
-    return errors;
+module.exports.JoiErrorHandler=(error)=>{
+    let errors="";
 
+    var errorType = error.details[0].type;
+    switch (errorType) {
+      case "string.empty":
+        errors +=(error.message);
+        break;
+      case "string.pattern.base":
+        errors +=(error.message);
+        break;
+      case "any.required":
+        errors += (error.message);
+        break;
+      default:
+        break;
+    }
+    return errors;
 }
+
+// module.exports.postJoiErrorHandler=(error)=>{
+//     let error={title:"", content:""};
+//     Object.values(error.details).forEach()
+// }

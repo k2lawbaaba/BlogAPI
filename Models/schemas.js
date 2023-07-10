@@ -7,7 +7,8 @@ const userSchema= new  mongoose.Schema({
         type: String,
         required:[true,"username is required"],
         unique : true,
-        minlength:[3,"Minimum length is 3"]
+        minlength:[3,"Minimum length is 3"],
+        lowercase:true
     },
     password:{
         type:String,
@@ -20,19 +21,30 @@ userSchema.pre("save", async function(){
     this.password= await bcrypt.hash(this.password, 10)
 })
 
+userSchema.statics.login= async function(username, password){
+ const user= await this.findOne({username});
+ if(user){
+    const isMatch= await bcrypt.compare(password, user.password);
+    if(isMatch){
+        return user;
+    }
+    throw new Error("Incorrcect password");
+ }
+ throw new Error("Incorrect email");
+}
 // post schema
 const blogPostSchema= new mongoose.Schema({
-    Blogger:{
-        type: String,
+    BloggerID:{
+        type: mongoose.ObjectId,
         required:[true,"username cannot be empty"],
         ref:"User",
     },
-    title:{
+    Title:{
         type:String,
         maxlength:[150,"Title can contain only 150 characters"],
         trim:true
     },
-    contents:{
+    Contents:{
         type:String,
     }
 })
