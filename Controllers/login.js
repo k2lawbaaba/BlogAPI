@@ -30,7 +30,7 @@ else{
             }
         }
         else{
-            res.status(200).send(value.username + " is not registered");
+            res.status(200).send(value.username + " is not registered or changed");
         }
         
     } 

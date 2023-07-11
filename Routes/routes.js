@@ -10,7 +10,8 @@ const updatePost = require('../Controllers/updatePost');
 const updateUser = require('../Controllers/updateUser');
 const deletePost = require('../Controllers/deletePost');
 const logOut = require('../Controllers/logOut');
-const verifyUserByTokenId = require('../Validators/verifyToken');
+const verifyToken = require('../Validators/verifyToken');
+const getPostByBloggerId = require('../Controllers/getPostByBloggerId');
 
 
 const route= Router();
@@ -18,20 +19,23 @@ const route= Router();
 //the POST METHODS
 route.post('/api/auth/register', register);
 route.post('/api/auth/login', login);
-route.post('/api/create_posts',verifyUserByTokenId, createPost);
+route.post('/api/create_posts',verifyToken, createPost);
 
 //the GET METHODS
-route.get('/api/posts',verifyUserByTokenId, getPosts);
-route.get('/api/posts/:id',verifyUserByTokenId, getPostById);
-route.get('/api/users/:id', getUserById);
-route.get('/api/users', getAllUsers);
-route.get('/api/auth/logout', verifyUserByTokenId, logOut);
+route.get('/api/posts',verifyToken, getPosts);
+route.get('/api/posts/:id',verifyToken, getPostById);
+route.get('/api/users/:id',verifyToken, getUserById);
+route.get('/api/users',verifyToken, getAllUsers);
+route.get('/api/auth/logout', verifyToken, logOut);
+route.get('/post/:bloggerId',verifyToken, getPostByBloggerId);
+
+
 
 //the PUT METHODS
-route.put('/api/post/:id',verifyUserByTokenId, updatePost);
-route.put('/api/users/:id', updateUser);
+route.put('/api/post/:id',verifyToken, updatePost);
+route.put('/api/user/:id',verifyToken, updateUser);
 
 //the DELETE METHOD
-route.delete('/api/post/:id',verifyUserByTokenId, deletePost );
+route.delete('/api/post/:id',verifyToken, deletePost );
 
 module.exports=route;

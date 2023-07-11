@@ -14,10 +14,15 @@ const createPost= async (req, res)=>{
             const post= new blogPost({
                 BloggerID: req.user,
                 Title: value.Title,
-                Contents: value.Content
+                Contents: value.Content,
+                createAt: new Date(),
+                updatedAt: null,
+                oldTitle:null,
+                oldContent:null,
+
             })
             const newPost= await post.save();
-            res.status(201).json({"Post": newPost})
+            res.status(201).json("Post successfully created")
         } catch (error) {
             res.status(403).json(error);
             

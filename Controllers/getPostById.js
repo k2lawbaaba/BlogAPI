@@ -10,7 +10,7 @@ const getPostById= async (req, res)=>{
     }
     else{
         try {
-          const post=  await blogPost.findById({_id: value.Post_Id},'Title Contents');
+          const post=  await blogPost.findById({_id: value.Post_Id},'Title Contents createdAt updatedAt');
            if(post){
                res.status(201).json({post});
            }

@@ -46,8 +46,21 @@ const blogPostSchema= new mongoose.Schema({
     },
     Contents:{
         type:String,
+    },
+    createAt:{
+        type : Date,
+    },
+    oldTitle:{
+        type: String,
+    },
+    oldContent:{
+        type: String,
+    },
+    updatedAt:{
+        type :Date
     }
 })
+
 
 module.exports.User= new mongoose.model("User", userSchema);
 module.exports.blogPost =new mongoose.model('blogposts',blogPostSchema )
