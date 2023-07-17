@@ -29,7 +29,8 @@ const updatePosts = async (req, res) => {
             oldTitle: post.Title,
             oldContent: post.Contents,
             updatedAt: new Date(),
-          }
+          },
+          {new: true}
         );
         res.status(201).send(" Post Updated successfully");
       } else {

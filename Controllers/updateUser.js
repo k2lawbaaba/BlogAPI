@@ -17,7 +17,12 @@ const updateUser= async(req, res)=>{
     }
     else{
     try {
-        const userUpdate= await User.findByIdAndUpdate({_id:req.user}, {username:value.username, password:value.password});
+        const userUpdate= await User.findByIdAndUpdate({_id:req.user},
+             {username:value.username,
+             password:value.password},
+             {new: true}
+             
+             );
         res.status(201).json({"Profile updated": userUpdate});
     } catch (error) {
 

@@ -8,6 +8,7 @@ const createPost= async (req, res)=>{
     if(error){
         const errors= handleError.JoiErrorHandler(error);
         res.status(406).send(errors);
+        
     }
     else{
         try {
