@@ -37,7 +37,7 @@ const blogPostSchema= new mongoose.Schema({
     BloggerID:{
         type: mongoose.ObjectId,
         required:[true,"username cannot be empty"],
-        ref:"User",
+        ref:"user",
     },
     Title:{
         type:String,
