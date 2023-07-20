@@ -1,5 +1,5 @@
 module.exports.dbSchemaErrors=(err)=>{
-    let errors={username:""}
+    let errors={}
 
     if(err.code===11000){
         errors.username="Username already exist";
